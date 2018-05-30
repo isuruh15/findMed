@@ -1,0 +1,43 @@
+<% include partials/headerNew %>
+
+  <link rel="stylesheet" href="/css/ownerCentre.css">
+
+  <link rel="stylesheet" href="/css/login.css">
+
+  <div class="formdiv rounded" style="flex: 1;">
+    <div class="heading">
+      <h2>Login</h2>
+    </div>
+    <form method="POST" action="/centre/<%= id %>/doctor/<%= docId %>">
+      <div class="form-group">
+        <label for="centre">Channelling Centre</label>
+        <input type="text" class="form-control" id="centre" value="<%= centre %>" readonly>
+      </div>
+      <div class="form-group">
+        <label for="doctor">Doctor</label>
+        <input type="text" class="form-control" id="doctor" value="<%= doctor %>" readonly>
+      </div>
+      <div class="form-group">
+        <label for="date">Date</label>
+        <input type="date" required class="form-control" id="date" name="date">
+      </div>
+      <div class="form-group">
+        <label for="start">Starting Time</label>
+        <input type="time" required class="form-control" id="start" name="start" value="08:00">      
+      </div>
+      <div class="form-group">
+        <label for="end">Ending Time</label>
+        <input type="time" required class="form-control" id="end" name="end" value="08:00">            
+      </div>
+      <div class="form-group">
+        <label for="unittime">Time Per Slot<small>(in minutes)</small></label>
+        <input type="text" class="form-control" id="unittime" name="unittime" placeholder="Time Per Slot">
+      </div>
+      <div class="login-btn">
+        <hr />
+        <button type="submit" id="sub" class="btn btn-primary btn-lg">Add</button>
+      </div>
+    </form>
+  </div>
+
+  <% include partials/footer %>

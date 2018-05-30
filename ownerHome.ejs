@@ -1,0 +1,126 @@
+<% include partials/headerNew %>
+
+  <%
+  const today = new Date();
+  let month = today.getMonth();
+  let date = today.getDate();
+  if(month < 9) {
+    month = '0' + (month + 1);
+  }
+  else {
+    month = month + 1;
+  }
+  if(date < 10) {
+    date = '0' + date;
+  }
+  const day = today.getFullYear() + '-' + month + '-' + date;
+%>
+
+    <link rel="stylesheet" href="/css/ownerHome.css">
+
+    <div class="first container" style="flex: 1;">
+      <div class="row">
+        <div class="col-sm-4 container nav-left">
+          <div class="card" style="padding-top: 0%; padding-bottom: 0%; margin-bottom: 2rem;">
+            <div class="card-body">
+              <h5>
+                <%= name %>
+              </h5>
+              <h6 class="card-subtitle">
+                <img src="/img/profilepic.jpg" alt="">
+              </h6>
+              <hr>
+              <p class="card-text">
+                <ul style="list-style-type: none; padding-left:0em;">
+                  <li>
+                    <a href="/centre/new">
+                      <h6>Add Centre</h6>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="">
+                      <h6>View/Edit Profile</h6>
+                    </a>
+                  </li>
+                </ul>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="container col-sm-8">
+          <div class="card" style="margin-bottom: 0.9rem;">
+            <div class="card-body">
+              <h2 style="margin-bottom: 0;">Channelling Centres</h2>
+            </div>
+          </div>
+          <% 
+            let i = 0;
+            centres.forEach((centre) => { 
+          %>
+            <div class="card">
+              <div class="card-body row">
+                <div class="col-sm-8">
+                  <h5 class="card-title">
+                    <a href="/owner/centre/<%= centre._id %>" id="<%= centre.id %>-name">
+                      <%=centre.name%>
+                    </a>
+                  </h5>
+                  <h6 class="card-subtitle">
+                    <%=centre.address%>
+                  </h6>
+                  <p class="card-text">
+                    <%=centre.contact%>
+                  </p>
+                </div>
+                <div class="col-sm-4" style="margin: auto;">
+                  <a href="" class="btn btn-primary">Edit</a>
+                  <a style="color: white;" class="btn btn-primary" data-toggle="modal" data-target="#removeModal<%= i %>">Remove</a>
+                </div>
+              </div>
+            </div>
+            <!-- Sart Modal -->
+            <div class="modal fade" id="removeModal<%= i %>" tabindex="-1" role="dialog" aria-labelledby="removeModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                      <i class="now-ui-icons ui-1_simple-remove"></i>
+                    </button>
+                    <h4 class="title title-up">Remove Channelling Centre</h4>
+                  </div>
+                  <div class="modal-body">
+                    <p>Do you really want to remove
+                      <span id="remCentre">
+                        <%= centre.name %>
+                      </span>?</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <a class="btn btn-primary" href="/centre/<%= centre.id %>/remove">Remove</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--  End Modal -->
+            <% 
+                i = i + 1;
+              }); 
+              if(centres.length === 0) {
+            %>
+              <div class="card no-centre">
+                <div class="card-body" style="text-align:center;">
+                  <h5 class="card-title">You haven't registered any channelling centres yet.</h5>
+                  <h6 class="card-subtitle">Add your first centre here!</h6>
+                  <p class="card-text" style="margin-top:0.3em;">
+                    <a href="/centre/new" class="btn btn-primary">Add Centre</a>
+                  </p>
+                </div>
+              </div>
+              <%
+        }
+      %>
+        </div>
+      </div>
+    </div>
+
+    <% include partials/footer %>

@@ -1,0 +1,162 @@
+<% include partials/headerNew %>
+
+  <link rel="stylesheet" href="/css/ownerCentre.css">
+
+  <div class="first container" style="flex: 1;">
+    <div class="row">
+      <div class="col-sm-4 container nav-left">
+        <div class="card" style="padding-top: 0%; padding-bottom: 0%; margin-bottom: 2rem;">
+          <div class="card-body">
+            <h5>
+              <%= name %>
+            </h5>
+            <h6 class="card-subtitle">
+              <img src="https://goo.gl/uCGtMt" alt="">
+            </h6>
+            <hr>
+            <p class="card-text">
+              <ul style="list-style-type: none; padding-left:0em;">
+                <li>
+                  <a href="/centre/new">
+                    <h6>Add Appointment</h6>
+                  </a>
+                </li>
+                <li>
+                  <a href="">
+                    <h6>Edit Centre Details</h6>
+                  </a>
+                </li>
+              </ul>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="container col-sm-8">
+        <div class="row">
+        <div class="card" style="margin-bottom: 0.9rem;">
+          <div class="card-body">
+            <h2 style="margin-bottom: 0;">
+              <%= name %>
+            </h2>
+          </div>
+        </div>
+      </div>
+        <div class="row">
+          <% if(schedules.length>0) { %>
+            <div class="card">
+              <div class="card-body">
+                <table class="table">
+                  <thead>
+                    <tr>
+                    <th>Doctor</th>
+                    <th>Date</th>
+                    <th>Start</th>
+                    <th>End</th>
+                    <th>Time Per Slot</th>
+                    </tr>                    
+                  </thead>
+                  <tbody>
+                    <% schedules.forEach((schedule) => { %>
+                      <tr>
+                        <th><%= schedule.doctor.name %></th>
+                        <td><%= schedule.date.getDate() + "-" + (schedule.date.getMonth() +  1) + "-" + schedule.date.getFullYear() %></td>
+                        <td><%= schedule.start %></td>
+                        <td><%= schedule.end %></td>
+                        <td><%= schedule.unittime %></td>
+                      </tr>
+                    <% }); %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+        </div>
+            <div class="row">
+          <% } 
+            if(operators.length === 0 && doctors.length !== 0) {
+          %>
+            <div class="col-sm-6">
+              <div class="card no-centre">
+                <div class="card-body" style="text-align:center;">
+                  <h5 class="card-title">
+                    <%= name %> does not have any operators yet.</h5>
+                  <h6 class="card-subtitle">Enter NIC of the Operator below.</h6>
+                  <form class="form" action="/centre/<%= id %>/operator" method="POST" style="margin-top: 1.2rem;">
+                    <div class="form-group" style="margin: auto;">
+                      <input type="text" class="form-control" name="nic" id="nic" placeholder="National Identity Card Number">
+                    </div>
+                    <input class="btn btn-primary btn-round" type="submit" value="Add Operator">
+                  </form>
+                </div>
+              </div>
+            </div>
+            <%
+            }
+          %>
+              <% 
+        if(doctors.length !== 0) {
+          %>
+                <div class="col-sm-6">
+                  <div class="card">
+                    <div class="card-header">
+                      Doctors
+                    </div>
+                    <div class="card-body">
+                      <ul class="list-group list-group-flush">
+                        <%
+          doctors.forEach((doctor) => { 
+        %>
+                          <div class="row">
+                            <h6 class="card-text col-8">
+                              <%=doctor.name%>
+                            </h6>
+                            <div class="col-4" style="text-align: right;">
+                              <a href="/owner/centre/<%= id %>/doctor/<%= doctor.id %>/apointment">
+                                <i class="fas fa-plus-circle"></i>
+                              </a>
+                              <a href="">
+                                <i class="fas fa-minus-circle"></i>
+                              </a>
+                            </div>
+                          </div>
+                          <% 
+            });
+          %>
+                      </ul>
+                    </div>
+                  </div>
+                  <form class="form" action="/centre/<%= id %>/doctor" method="POST" style="margin-top: 1.2rem;">
+                    <div class="form-group">
+                      <input type="text" class="form-control" name="slmcreg" id="slmcreg" placeholder="SLMC Registration Number" style="width: 84.948%; display:inline-block;">
+                      <button class="btn btn-primary btn-icon btn-round" type="submit">
+                        <i class="fas fa-plus"></i>
+                      </button>
+                    </div>
+                  </form>
+                </div>
+        </div>
+        <%
+          } 
+          if(doctors.length === 0) {
+        %>
+          <div class="card no-centre" style="flex: 1;">
+            <div class="card-body" style="text-align:center;">
+              <h5 class="card-title">
+                <%= name %> does not have any doctors yet.</h5>
+              <h6 class="card-subtitle">Enter SLMC Registratioin number of the doctor below.</h6>
+              <form class="form" action="/centre/<%= id %>/doctor" method="POST" style="margin-top: 1.2rem;">
+                <div class="form-group col-sm-6" style="margin: auto;">
+                  <input type="text" class="form-control" name="slmcreg" id="slmcreg" placeholder="SLMC Registration Number">
+                </div>
+                <input class="btn btn-primary btn-round" type="submit" value="Add Doctor">
+              </form>
+            </div>
+          </div>
+          <%
+          }
+        %>
+      </div>
+      </div>
+      </div>
+    </div>
+
+      <% include partials/footer %>

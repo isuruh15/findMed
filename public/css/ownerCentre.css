@@ -1,0 +1,31 @@
+.carddiv{
+  margin-top: 0;
+  height: 100%;
+}
+
+.first{
+  margin-top: 7.5rem;
+}
+
+.no-centre{
+  margin-bottom: 1%;
+  padding-top: 15%;
+  padding-bottom: 15%;
+}
+
+.card{
+  margin-bottom: 1%;
+}
+
+a:hover{
+  text-decoration: none;
+}
+
+input[type=date]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  display: none;
+}
+
+.card .card-body{
+  min-height: auto;
+}

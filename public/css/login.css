@@ -1,0 +1,20 @@
+.formdiv{
+  width: 40%;
+  min-width: 280px;
+  margin: 8.7rem auto;
+  padding: 2rem 3%;
+  padding-bottom: 1%;
+  background: #ffffff;
+  border: 1px solid #2CA8FF;
+}
+
+.heading{
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.login-btn{
+  margin-top: 2rem; 
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
